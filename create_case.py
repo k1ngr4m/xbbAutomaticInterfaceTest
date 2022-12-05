@@ -1,7 +1,9 @@
 # -*- coding = utf-8 -*-
 
-import simplejson as json
+import json as json
 import re
+import os
+
 # 空字符串
 str_none = ''
 # 字符边界最大值
@@ -39,8 +41,8 @@ case_data = {
 }
 match = "'"
 create_case_pattern = re.compile(match)
-api_file = "api_data.txt"
-auto_case = "auto_case.txt"
+api_file = "data/api_data.txt"
+auto_case = "data/auto_case.txt"
 
 '''
 自动生成接口用例，规则如下：
@@ -54,6 +56,14 @@ auto_case = "auto_case.txt"
 
 # API接口用例自动生成规则
 def create_case():
+    # if os.path.exists(auto_case) and os.path.exists(api_file):
+    #     print('exist')
+    # else:
+    #     print('not exist')
+    #     with open(auto_case, 'w+') as file:
+    #         file.close()
+    #     with open(api_file, 'w+') as file:
+    #         file.close()
     with open(auto_case, 'r+') as lose_key:
         lose_key.truncate(0)
     with open(api_file, mode='r+', encoding='utf-8') as data:
