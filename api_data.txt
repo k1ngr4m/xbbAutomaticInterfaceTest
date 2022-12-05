@@ -1,0 +1,1 @@
+{"id":1,"name":"具体工单池启用关闭接口","url":"/pro/v1/workOrderV2/pool/enable","frontDev": 1 ,"param":{"userId": "manager2788", "corpid": "ding66041eb1c6df73f535c2f4657eb6378f", "enable": 1, "id": 5,"platform":"web"}}
