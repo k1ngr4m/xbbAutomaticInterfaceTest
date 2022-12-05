@@ -1,3 +1,5 @@
 yapi.py
 create_case.py
 team_interface.py
+data/auto_case.txt
+data/api_data.txt
