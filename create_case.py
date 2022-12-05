@@ -39,8 +39,8 @@ case_data = {
 }
 match = "'"
 create_case_pattern = re.compile(match)
-api_file = "/Users/lnwu/Downloads/xbbAutomaticInterfaceTest/api_data.txt"
-auto_case = "/Users/lnwu/Downloads/xbbAutomaticInterfaceTest/auto_case.txt"
+api_file = "api_data.txt"
+auto_case = "auto_case.txt"
 
 '''
 自动生成接口用例，规则如下：
