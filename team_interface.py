@@ -1,13 +1,15 @@
 # coding=utf-8
 import json
+import os.path
 
-import demjson as demjson
+import demjson3 as demjson
 import requests
 import re
 import hashlib
 import time
 import random
 from faker import Faker
+import datetime
 
 fake = Faker(locale='zh_CN')
 
@@ -28,7 +30,7 @@ web_headers = {'Host': 'saetestwebf.xbongbong.com.cn',
 
 
 # token
-production_token = '065873e99c12b4dc832124d3c89db2964c4e573427441f6af8074ac480d3ecd0'
+production_token = 'bebeb55efe71e10770160ac85b6b300feea2272a2da73983647f5968413dd889'
 
 
 
@@ -48,11 +50,22 @@ def create_sign_code(request_parameters, production_token):
 #         init_data = str(init_data).replace(str(matcher), str(need_replace_to_data))
 #     return init_data
 
+current_time = str(time.strftime('%Y-%m-%d_%H:%M', time.localtime(time.time())))
+auto_case = r"data/auto_case.txt"
+test_report = fr'data/{current_time}_test_report.txt'
+global test_report_name
 
-auto_case = "/Users/lnwu/Downloads/xbbAutomaticInterfaceTest/auto_case.txt"
+if not os.path.exists(test_report):
+    with open(test_report, 'a', encoding='utf-8') as file:
+        test_report_name = test_report
+        file.close()
+else:
+    with open(test_report, 'w', encoding='utf-8') as file:
+        file.truncate(0)
 with open(auto_case, mode='r+', encoding='utf-8') as case_file:
+    i = 1
     for line in case_file:
-        time.sleep(5)
+        time.sleep(1)
         case_data = demjson.decode(line)
         case_name = case_data['case_name']
         request_url = case_data['request_url']
@@ -62,15 +75,21 @@ with open(auto_case, mode='r+', encoding='utf-8') as case_file:
         sign_code = create_sign_code(request_param, production_token)
         web_headers['sign'] = sign_code
         actual_result = requests.post(url=production_host + request_url, json=request_param, headers=web_headers)
-
         if actual_result.status_code != 200:
-            print("用例名称: ", case_name, "请求地址: ", request_url)
+            print(f"第{i}条\t用例名称: ", case_name, "请求地址: ", request_url)
             print("请求报文: ", case_data['request_param'])
             print("用例名称: ", case_name, "实际结果: ", actual_result.text, "\n")
         else:
             if '服务器' in str(actual_result.json()['msg']) or '网络' in str(actual_result.json()['msg']):
-                print("用例名称: ", case_name, "请求地址: ", request_url)
+                print(f"第{i}条\t用例名称: ", case_name, "请求地址: ", request_url)
                 print("请求报文: ", case_data['request_param'])
                 print("用例名称: ", case_name, "实际结果: ", actual_result.text, "\n")
+                with open(test_report, 'a+', encoding='utf-8') as file:
+                    file.write(f"第{i}条\t用例名称: {case_name}, 请求地址:  {request_url}\t")
+                    file.write(f"请求报文: {case_data['request_param']}\t")
+                    file.write(f"用例名称: {case_name}, 实际结果: {actual_result.text}\n")
             else:
-                print("用例名称: ", case_name, "实际结果: ", actual_result.json()['msg'], "\n")
+                print(f"第{i}条\t用例名称: ", case_name, "实际结果: ", actual_result.json()['msg'], "\n")
+                # with open(test_report, 'a+', encoding='utf-8') as file:
+                #     file.write(f"第{i}条\t用例名称: {case_name}, 实际结果: {actual_result.json()['msg']}\n")
+        i = i+1

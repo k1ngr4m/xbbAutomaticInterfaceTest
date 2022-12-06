@@ -1,7 +1,9 @@
 import json
 import os.path
-
+import ast
 import requests as requests
+import demjson3 as demjson
+import re
 
 
 class Yapi:
@@ -9,6 +11,16 @@ class Yapi:
         self.url = 'http://yapi.xbongbong.com'
         self.token = '132a896d2dc4420896f4cdd3a982bfe77816c6aaacd7252300567ec30a3d38a3'  # 项目token（记得改）
         # self.token = 'db2c30e56df248c641d5e45428a583ab9dc8bf73e9aeefcef3b8effbef7b8007'
+        self.corpid = 'ding66041eb1c6df73f535c2f4657eb6378f'
+        self.userid = '215252650523902241'
+
+    # 替换数据
+    def replace_data(self, init_data, expected_to_be_replace, need_replace_to_data):
+        page_pattern = re.compile(expected_to_be_replace)
+        matchers = page_pattern.findall(str(init_data))
+        for matcher in matchers:
+            init_data = str(init_data).replace(str(matcher), str(need_replace_to_data))
+        return init_data
 
     # 获取菜单列表
     def get_cat_menu(self):
@@ -112,7 +124,7 @@ class Yapi:
             }
             try:
                 response = requests.get(url=url, params=body, headers=headers).json()
-                print(response)
+                # print(response)
                 errcode = response['errcode']
                 # 成功获取data
                 if errcode == 0:
@@ -122,14 +134,21 @@ class Yapi:
                     path = data['path']
                     req_body_other = data['req_body_other']
                     res_body = data['res_body']
+                    # req_body_other = self.deal_req_body(req_body_other)
+                    req_body_other = demjson.decode(req_body_other)
+                    req_body_other = self.replace_data(str(req_body_other), "xbbxing", self.corpid)
+                    req_body_other = self.replace_data(str(req_body_other), "xiao001", self.userid)
                     api_data_dict = {
                         'id': i + 1,
                         'name': title,
                         'url': path,
-                        "frontDev": 1,
+                        # "frontDev": 1,
                         "param": req_body_other
                     }
-                    api_data_dict = (str(api_data_dict) + '\r').replace(r'\n', '').replace(' ', '')
+                    # api_data_dict = (str(api_data_dict) + '\r').replace(r'\n', '').replace(' ', '')
+                    # api_data_dict = (str(api_data_dict) + '\r')
+                    # print(api_data_dict)
+                    api_data_dict = (str(api_data_dict) + '\r').replace(r'\n', '').replace('"', '').replace("'", '"')
                     print(api_data_dict)
                     with open(api_data_filename, 'a+', encoding='utf-8') as w_f:
                         w_f.write(api_data_dict)
@@ -138,6 +157,19 @@ class Yapi:
                     print(errcode)
             except Exception as e:
                 print(e)
+
+    def deal_req_body(self, req_body):
+        req_body = str(req_body).replace(r'\n', '').replace(' ', '')
+        req_body = json.loads(str(req_body))
+        # req_body = eval(str(req_body))
+        print(req_body)
+        # req_body = req_body.replace("true", "True").replace("false", "False").replace("null", "None")
+        # print(req_body)
+        # req_body = ast.literal_eval(req_body)
+        # print(eval(req_body))
+        # print(req_body)
+        print(type(req_body))
+        return req_body
 
 
 if __name__ == '__main__':
