@@ -52,12 +52,10 @@ def create_sign_code(request_parameters, production_token):
 
 current_time = str(time.strftime('%Y-%m-%d_%H:%M', time.localtime(time.time())))
 auto_case = r"data/auto_case.txt"
-test_report = fr'data/{current_time}_test_report.txt'
-global test_report_name
+test_report = fr'data/test_report.txt'
 
 if not os.path.exists(test_report):
     with open(test_report, 'a', encoding='utf-8') as file:
-        test_report_name = test_report
         file.close()
 else:
     with open(test_report, 'w', encoding='utf-8') as file:
