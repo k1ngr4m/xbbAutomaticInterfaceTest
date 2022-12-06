@@ -18,20 +18,18 @@ production_host = 'https://saetestwebf.xbongbong.com.cn'
 
 # 每次请求发送时均会校验sign值
 web_headers = {'Host': 'saetestwebf.xbongbong.com.cn',
-                    'Accept': 'application/json, text/plain, */*',
-                    'Origin': 'https://saetestwebf.xbongbong.com.cn',
-                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36',
-                    'sign': '',
-                    'Content-Type': 'application/json;charset=UTF-8',
-                    'Referer': 'https://saetestwebf.xbongbong.com.cn/',
-                    'Accept-Encoding': 'gzip, deflate, br',
-                    'Accept-Language': 'zh-CN,zh;q=0.9',
-                    'Connection': 'keep-alive'}
-
+               'Accept': 'application/json, text/plain, */*',
+               'Origin': 'https://saetestwebf.xbongbong.com.cn',
+               'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36',
+               'sign': '',
+               'Content-Type': 'application/json;charset=UTF-8',
+               'Referer': 'https://saetestwebf.xbongbong.com.cn/',
+               'Accept-Encoding': 'gzip, deflate, br',
+               'Accept-Language': 'zh-CN,zh;q=0.9',
+               'Connection': 'keep-alive'}
 
 # token
 production_token = 'bebeb55efe71e10770160ac85b6b300feea2272a2da73983647f5968413dd889'
-
 
 
 # 生成请求头里的sign值
@@ -88,6 +86,6 @@ with open(auto_case, mode='r+', encoding='utf-8') as case_file:
                     file.write(f"用例名称: {case_name}, 实际结果: {actual_result.text}\n")
             else:
                 print(f"第{i}条\t用例名称: ", case_name, "实际结果: ", actual_result.json()['msg'], "\n")
-                # with open(test_report, 'a+', encoding='utf-8') as file:
-                #     file.write(f"第{i}条\t用例名称: {case_name}, 实际结果: {actual_result.json()['msg']}\n")
-        i = i+1
+                with open(test_report, 'a+', encoding='utf-8') as file:
+                    file.write(f"第{i}条\t用例名称: {case_name}, 实际结果: {actual_result.json()['msg']}\n")
+        i = i + 1
