@@ -10,6 +10,19 @@ import time
 import random
 from faker import Faker
 import datetime
+import logging
+
+logger = logging.getLogger('test_logger')
+logger.setLevel(logging.DEBUG)
+sh = logging.StreamHandler()
+fh = logging.FileHandler('/data/log/test.log', 'a', encoding='utf-8')
+sh.setLevel(logging.DEBUG)
+fh.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s-%(name)s-%(levelname)s-%(message)s')
+sh.setFormatter(formatter)
+fh.setFormatter(formatter)
+logger.addHandler(sh)
+logger.addHandler(fh)
 
 fake = Faker(locale='zh_CN')
 
@@ -97,6 +110,7 @@ with open(auto_case, mode='r+', encoding='utf-8') as case_file:
         web_headers['sign'] = sign_code
         try:
             actual_result = requests.post(url=production_host + request_url, json=request_param, headers=web_headers)
+
             if actual_result.status_code != 200:
                 print(f"第{i}条\t用例名称: {case_name}\t")
                 print('~~~~~~~~~~~~')
@@ -149,6 +163,10 @@ with open(auto_case, mode='r+', encoding='utf-8') as case_file:
                 }
 
             data_list.append(data_dict)
+
+            if actual_result.status_code == 200:
+                if '服务器' in str(actual_result.json()['msg']) or '网络' in str(actual_result.json()['msg']):
+                    logger.warning(f"用例名称: {case_name}\t请求地址：{request_url}\r请求报文：{case_data['request_param']}\r实际结果：{actual_result.text}")
         except Exception as e:
             print(e)
 
