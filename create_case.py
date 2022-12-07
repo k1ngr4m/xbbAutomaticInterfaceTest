@@ -59,6 +59,7 @@ def create_case():
         lose_key.truncate(0)
     with open(api_file, mode='r+', encoding='utf-8') as data:
         for line in data:
+            print(line)
             init_data = json.loads(line)
             api_name = init_data['name']
             case_data['request_url'] = init_data['url']

@@ -152,7 +152,7 @@ class Yapi:
                     # api_data_dict = (str(api_data_dict) + '\r')
                     # print(api_data_dict)
                     api_data_dict = (str(api_data_dict) + '\r').replace(r'\n', '').replace('"', '').replace("'", '"').replace('None', 'null').replace('False', 'false').replace('True', 'true')
-                    # print(api_data_dict)
+                    print(api_data_dict)
                     # interface_data_list.append(api_data_dict)
                     with open(api_data_filename, 'a+', encoding='utf-8') as w_f:
                         w_f.write(api_data_dict)
@@ -168,12 +168,12 @@ class Yapi:
             # w_f.write(res)
 
     def deal_req_body(self, req_body):
-        print(f'[1] req_body:{req_body}')
-        print(f'[2] type(req_body):{type(req_body)}')
+        # print(f'[1] req_body:{req_body}')
+        # print(f'[2] type(req_body):{type(req_body)}')
         res = json.loads(req_body)
-        print('~~~~~~~~')
-        print(res)
-        print(type(res))
+        # print('~~~~~~~~')
+        # print(res)
+        # print(type(res))
         return res
 
 
