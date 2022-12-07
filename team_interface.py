@@ -15,7 +15,7 @@ import logging
 logger = logging.getLogger('test_logger')
 logger.setLevel(logging.DEBUG)
 sh = logging.StreamHandler()
-fh = logging.FileHandler('/data/log/test.log', 'a', encoding='utf-8')
+fh = logging.FileHandler('data/log/test.log', 'a', encoding='utf-8')
 sh.setLevel(logging.DEBUG)
 fh.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s-%(name)s-%(levelname)s-%(message)s')
