@@ -29,7 +29,7 @@ web_headers = {'Host': 'saetestwebf.xbongbong.com.cn',
                'Connection': 'keep-alive'}
 
 # token
-production_token = 'bebeb55efe71e10770160ac85b6b300feea2272a2da73983647f5968413dd889'
+production_token = '3fc702f4c54dc400182dfa8c4c9b67ed1f67cb7609120ad0e888e95691695225'
 
 
 # 生成请求头里的sign值
@@ -48,9 +48,9 @@ def create_sign_code(request_parameters, production_token):
 #         init_data = str(init_data).replace(str(matcher), str(need_replace_to_data))
 #     return init_data
 
-current_time = str(time.strftime('%Y-%m-%d_%H:%M', time.localtime(time.time())))
+current_time = str(time.strftime('%Y-%m-%d', time.localtime(time.time())))
 auto_case = r"data/auto_case.txt"
-test_report = fr'data/test_report.txt'
+test_report = fr'data/{current_time}_test_report.txt'
 
 if not os.path.exists(test_report):
     with open(test_report, 'a', encoding='utf-8') as file:
@@ -61,7 +61,8 @@ else:
 with open(auto_case, mode='r+', encoding='utf-8') as case_file:
     i = 1
     for line in case_file:
-        time.sleep(1)
+        random_time = random.randint(1, 5)
+        time.sleep(random_time)
         case_data = demjson.decode(line)
         case_name = case_data['case_name']
         request_url = case_data['request_url']

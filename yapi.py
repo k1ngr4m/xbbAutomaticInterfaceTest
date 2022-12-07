@@ -112,6 +112,9 @@ class Yapi:
                 file.truncate(0)
         with open(interface_list_cat_filename, 'r', encoding='utf-8') as file:
             interface_list_cat_list = json.load(file)
+
+        interface_data_list = []
+
         for i in range(len(interface_list_cat_list)):
             interface_id = interface_list_cat_list[i]['interface_id']
             url = self.url + '/api/interface/get'
@@ -134,8 +137,8 @@ class Yapi:
                     path = data['path']
                     req_body_other = data['req_body_other']
                     res_body = data['res_body']
-                    # req_body_other = self.deal_req_body(req_body_other)
-                    req_body_other = demjson.decode(req_body_other)
+                    req_body_other = self.deal_req_body(req_body_other)
+                    # req_body_other = demjson.decode(req_body_other)
                     req_body_other = self.replace_data(str(req_body_other), "xbbxing", self.corpid)
                     req_body_other = self.replace_data(str(req_body_other), "xiao001", self.userid)
                     api_data_dict = {
@@ -148,8 +151,9 @@ class Yapi:
                     # api_data_dict = (str(api_data_dict) + '\r').replace(r'\n', '').replace(' ', '')
                     # api_data_dict = (str(api_data_dict) + '\r')
                     # print(api_data_dict)
-                    api_data_dict = (str(api_data_dict) + '\r').replace(r'\n', '').replace('"', '').replace("'", '"')
-                    print(api_data_dict)
+                    api_data_dict = (str(api_data_dict) + '\r').replace(r'\n', '').replace('"', '').replace("'", '"').replace('None', 'null').replace('False', 'false').replace('True', 'true')
+                    # print(api_data_dict)
+                    # interface_data_list.append(api_data_dict)
                     with open(api_data_filename, 'a+', encoding='utf-8') as w_f:
                         w_f.write(api_data_dict)
                 # 返回数据错误
@@ -157,19 +161,20 @@ class Yapi:
                     print(errcode)
             except Exception as e:
                 print(e)
+        # with open(api_data_filename, 'a+', encoding='utf-8') as w_f:
+            # res = json.dumps(interface_data_list, ensure_ascii=False)
+            # res = str(interface_data_list).replace("'", '').replace('None', 'null').replace('False', 'false').replace('True', 'true')
+            # print(res)
+            # w_f.write(res)
 
     def deal_req_body(self, req_body):
-        req_body = str(req_body).replace(r'\n', '').replace(' ', '')
-        req_body = json.loads(str(req_body))
-        # req_body = eval(str(req_body))
-        print(req_body)
-        # req_body = req_body.replace("true", "True").replace("false", "False").replace("null", "None")
-        # print(req_body)
-        # req_body = ast.literal_eval(req_body)
-        # print(eval(req_body))
-        # print(req_body)
-        print(type(req_body))
-        return req_body
+        print(f'[1] req_body:{req_body}')
+        print(f'[2] type(req_body):{type(req_body)}')
+        res = json.loads(req_body)
+        print('~~~~~~~~')
+        print(res)
+        print(type(res))
+        return res
 
 
 if __name__ == '__main__':

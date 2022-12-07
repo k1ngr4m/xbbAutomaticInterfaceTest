@@ -2,7 +2,6 @@
 
 import simplejson as json
 import re
-
 # 空字符串
 str_none = ''
 # 字符边界最大值
@@ -70,14 +69,12 @@ def create_case():
             temp_param = dict.copy(init_param)
             matchers = create_case_pattern.findall(str(temp_param))
             for matcher in matchers:
-                temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False',
-                                                                                                              'false').replace(
-                    'True', 'true')
+                temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
             case_data['request_param'] = json.loads(temp_param)
             lose_key_case_name = "正常入参"
             case_data['case_name'] = lose_key_case_name
             with open(auto_case, mode='a+', encoding='utf-8') as lose_key:
-                lose_key.write((str(case_data) + "\n"))
+                lose_key.write(str(case_data) + "\n")
             # 遍历请求参数
             for param_key in init_param.keys():
                 if param_key != "userId" and param_key != "corpid" and param_key != "platform" and param_key != "frontDev":
@@ -86,8 +83,7 @@ def create_case():
                     temp_param[str_none] = temp_param.pop(param_key)
                     matchers = create_case_pattern.findall(str(temp_param))
                     for matcher in matchers:
-                        temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace(
-                            'False', 'false').replace('True', 'true')
+                        temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                     case_data['request_param'] = json.loads(temp_param)
                     lose_key_case_name = str(api_name) + "中" + param_key + "的key缺失"
                     case_data['case_name'] = lose_key_case_name
@@ -100,8 +96,7 @@ def create_case():
                     temp_param[param_key] = str_none
                     matchers = create_case_pattern.findall(str(temp_param))
                     for matcher in matchers:
-                        temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace(
-                            'False', 'false').replace('True', 'true')
+                        temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                     case_data['request_param'] = json.loads(temp_param)
                     lose_value_case_name = str(api_name) + "中" + param_key + "的value缺失"
                     case_data['case_name'] = lose_value_case_name
@@ -124,9 +119,7 @@ def create_case():
                             temp_param[param_key] = temp_second_level_dict
                             matchers = create_case_pattern.findall(str(temp_param))
                             for matcher in matchers:
-                                temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
-                                                                                                      'null').replace(
-                                    'False', 'false').replace('True', 'true')
+                                temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                             case_data['request_param'] = json.loads(temp_param)
                             second_dict_key_lose = str(api_name) + "中子级dict参数的key" + second_level_key + "缺失"
                             case_data['case_name'] = second_dict_key_lose
@@ -141,9 +134,7 @@ def create_case():
                             temp_param[param_key] = temp_second_level_dict
                             matchers = create_case_pattern.findall(str(temp_param))
                             for matcher in matchers:
-                                temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
-                                                                                                      'null').replace(
-                                    'False', 'false').replace('True', 'true')
+                                temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                             case_data['request_param'] = json.loads(temp_param)
                             second_dict_value_lose = str(api_name) + "中子级dict参数" + second_level_key + "的value缺失"
                             case_data['case_name'] = second_dict_value_lose
@@ -159,12 +150,9 @@ def create_case():
                                 temp_param[param_key] = temp_second_level_dict
                                 matchers = create_case_pattern.findall(str(temp_param))
                                 for matcher in matchers:
-                                    temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
-                                                                                                          'null').replace(
-                                        'False', 'false').replace('True', 'true')
+                                    temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                                 case_data['request_param'] = json.loads(temp_param)
-                                second_dict_max_int_judge = str(
-                                    api_name) + "中子级dict中" + second_level_key + "的int型值为最大整型"
+                                second_dict_max_int_judge = str(api_name) + "中子级dict中" + second_level_key + "的int型值为最大整型"
                                 case_data['case_name'] = second_dict_max_int_judge
                                 # 写入自动化用例文件
                                 with open(auto_case, mode='a+', encoding='utf-8') as case_write:
@@ -178,12 +166,9 @@ def create_case():
                                 temp_param[param_key] = temp_second_level_dict
                                 matchers = create_case_pattern.findall(str(temp_param))
                                 for matcher in matchers:
-                                    temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
-                                                                                                          'null').replace(
-                                        'False', 'false').replace('True', 'true')
+                                    temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                                 case_data['request_param'] = json.loads(temp_param)
-                                second_dict_min_int_judge = str(
-                                    api_name) + "中子级dict中" + second_level_key + "的int型值为最小整型"
+                                second_dict_min_int_judge = str(api_name) + "中子级dict中" + second_level_key + "的int型值为最小整型"
                                 case_data['case_name'] = second_dict_min_int_judge
                                 # 写入自动化用例文件
                                 with open(auto_case, mode='a+', encoding='utf-8') as case_write:
@@ -197,12 +182,9 @@ def create_case():
                                 matchers = create_case_pattern.findall(str(temp_param))
                                 temp_param[param_key] = temp_second_level_dict
                                 for matcher in matchers:
-                                    temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
-                                                                                                          'null').replace(
-                                        'False', 'false').replace('True', 'true')
+                                    temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                                 case_data['request_param'] = json.loads(temp_param)
-                                second_dict_special_char_judge = str(
-                                    api_name) + "中子级dict中" + second_level_key + "的int型值包含特殊字符"
+                                second_dict_special_char_judge = str(api_name) + "中子级dict中" + second_level_key + "的int型值包含特殊字符"
                                 case_data['case_name'] = second_dict_special_char_judge
                                 # 写入自动化用例文件
                                 with open(auto_case, mode='a+', encoding='utf-8') as case_write:
@@ -216,12 +198,9 @@ def create_case():
                                 temp_param[param_key] = temp_second_level_dict
                                 matchers = create_case_pattern.findall(str(temp_param))
                                 for matcher in matchers:
-                                    temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
-                                                                                                          'null').replace(
-                                        'False', 'false').replace('True', 'true')
+                                    temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                                 case_data['request_param'] = json.loads(temp_param)
-                                second_dict_special_char_judge = str(
-                                    api_name) + "中子级dict中" + second_level_key + "的str型值包含特殊字符"
+                                second_dict_special_char_judge = str(api_name) + "中子级dict中" + second_level_key + "的str型值包含特殊字符"
                                 case_data['case_name'] = second_dict_special_char_judge
                                 # 写入自动化用例文件
                                 with open(auto_case, mode='a+', encoding='utf-8') as case_write:
@@ -235,12 +214,9 @@ def create_case():
                                 temp_param[param_key] = temp_second_level_dict
                                 matchers = create_case_pattern.findall(str(temp_param))
                                 for matcher in matchers:
-                                    temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
-                                                                                                          'null').replace(
-                                        'False', 'false').replace('True', 'true')
+                                    temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                                 case_data['request_param'] = json.loads(temp_param)
-                                second_dict_special_char_judge = str(
-                                    api_name) + "中子级dict中" + second_level_key + "的str型最大值"
+                                second_dict_special_char_judge = str(api_name) + "中子级dict中" + second_level_key + "的str型最大值"
                                 case_data['case_name'] = second_dict_special_char_judge
                                 # 写入自动化用例文件
                                 with open(auto_case, mode='a+', encoding='utf-8') as case_write:
@@ -252,9 +228,7 @@ def create_case():
                         temp_param[param_key] = 9999999999
                         matchers = create_case_pattern.findall(str(temp_param))
                         for matcher in matchers:
-                            temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
-                                                                                                  'null').replace(
-                                'False', 'false').replace('True', 'true')
+                            temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                         case_data['request_param'] = json.loads(temp_param)
 
                         lose_value_case_name = str(api_name) + "中" + param_key + "的数字类型value值转变为最大int值"
@@ -270,9 +244,7 @@ def create_case():
                         temp_param[param_key] = -9999999999
                         matchers = create_case_pattern.findall(str(temp_param))
                         for matcher in matchers:
-                            temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
-                                                                                                  'null').replace(
-                                'False', 'false').replace('True', 'true')
+                            temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                         case_data['request_param'] = json.loads(temp_param)
 
                         lose_value_case_name = str(api_name) + "中" + param_key + "的数字类型value值转变为最小int值"
@@ -288,9 +260,7 @@ def create_case():
                         temp_param[param_key] = too_long_str
                         matchers = create_case_pattern.findall(str(temp_param))
                         for matcher in matchers:
-                            temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
-                                                                                                  'null').replace(
-                                'False', 'false').replace('True', 'true')
+                            temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                         case_data['request_param'] = json.loads(temp_param)
 
                         lose_value_case_name = str(api_name) + "中" + param_key + "的字符串类型value值过长"
@@ -308,9 +278,7 @@ def create_case():
                         temp_param[param_key] = list_type
                         matchers = create_case_pattern.findall(str(temp_param))
                         for matcher in matchers:
-                            temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
-                                                                                                  'null').replace(
-                                'False', 'false').replace('True', 'true')
+                            temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                         case_data['request_param'] = json.loads(temp_param)
 
                         value_type_transfer_to_list = str(api_name) + "中" + param_key + "的数字类型value值转变为list格式"
@@ -328,9 +296,7 @@ def create_case():
                         temp_param[param_key] = list_type
                         matchers = create_case_pattern.findall(str(temp_param))
                         for matcher in matchers:
-                            temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
-                                                                                                  'null').replace(
-                                'False', 'false').replace('True', 'true')
+                            temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                         case_data['request_param'] = json.loads(temp_param)
                         value_type_transfer_to_list = str(api_name) + "中" + param_key + "的字符串类型value值转变为list格式"
                         case_data['case_name'] = value_type_transfer_to_list
@@ -345,9 +311,7 @@ def create_case():
                         temp_param[param_key] = content_special_str
                         matchers = create_case_pattern.findall(str(temp_param))
                         for matcher in matchers:
-                            temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
-                                                                                                  'null').replace(
-                                'False', 'false').replace('True', 'true')
+                            temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                         case_data['request_param'] = json.loads(temp_param)
 
                         lose_value_case_name = str(api_name) + "中" + param_key + "的Int型value包含特殊字符"
@@ -363,9 +327,7 @@ def create_case():
                         temp_param[param_key] = content_special_str
                         matchers = create_case_pattern.findall(str(temp_param))
                         for matcher in matchers:
-                            temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
-                                                                                                  'null').replace(
-                                'False', 'false').replace('True', 'true')
+                            temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None', 'null').replace('False', 'false').replace('True', 'true')
                         case_data['request_param'] = json.loads(temp_param)
 
                         lose_value_case_name = str(api_name) + "中" + param_key + "的str型value包含特殊字符"
@@ -374,18 +336,6 @@ def create_case():
                         # 写入自动化用例文件
                         with open(auto_case, mode='a+', encoding='utf-8') as lose_value:
                             lose_value.write(str(case_data) + "\n")
-    transform()
 
 
-def transform():
-    with open(auto_case, mode='r', encoding='utf-8') as file:
-        res = file.read()
-    res = res.replace('None', 'null').replace('False', 'false').replace('True', 'true')
-    with open(auto_case, 'w', encoding='utf-8') as file:
-        print(res)
-        file.write(res)
-
-
-if __name__ == '__main__':
-    create_case()
-    # transform()
+create_case()
