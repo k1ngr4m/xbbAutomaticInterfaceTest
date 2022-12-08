@@ -86,7 +86,7 @@ with open(auto_case, mode='r+', encoding='utf-8') as case_file:
         request_param = case_data['request_param']
 
         request_urls = str(request_url).replace('/', '_').replace('?', '_')
-        test_report = fr'data/report/{current_time}_{request_urls}_test_report.txt'
+        test_report = fr'data/report/{current_time}_{request_urls}_test_report.log'
         # test_report_plus = fr'data/report/{current_time}_{request_urls}_test_report_plus.json'
         if not os.path.exists(test_report):
             with open(test_report, 'a', encoding='utf-8') as file:
