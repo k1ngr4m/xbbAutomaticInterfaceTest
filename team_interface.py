@@ -42,7 +42,7 @@ web_headers = {'Host': 'saetestwebf.xbongbong.com.cn',
                'Connection': 'keep-alive'}
 
 # token
-production_token = '3fc702f4c54dc400182dfa8c4c9b67ed1f67cb7609120ad0e888e95691695225'
+production_token = 'cce9ed147ce8420863be637593934762ad63f5140a4702bae173624348bed1da'
 
 
 # 生成请求头里的sign值

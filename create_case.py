@@ -27,6 +27,8 @@ too_long_str = '''豫章故郡，洪都新府。星分翼轸，地接衡庐。�
                   画栋朝飞南浦云，珠帘暮卷西山雨。
                   闲云潭影日悠悠，物换星移几度秋。
                   阁中帝子今何在？槛外长江空自流。'''
+max_int = 2147483647
+min_int = -2147483648
 # 特殊字符
 content_special_str = '~!@#$%^&*_-+<>?:()[]{}|/?.'
 # 用例数据
@@ -156,7 +158,7 @@ def create_case():
                             temp_param = dict.copy(init_param)
                             temp_second_level_dict = dict.copy(init_second_level_dict_data)
                             if isinstance(temp_second_level_dict[second_level_key], int):
-                                temp_second_level_dict[second_level_key] = 9999999999
+                                temp_second_level_dict[second_level_key] = max_int
                                 temp_param[param_key] = temp_second_level_dict
                                 matchers = create_case_pattern.findall(str(temp_param))
                                 for matcher in matchers:
@@ -175,7 +177,7 @@ def create_case():
                             temp_param = dict.copy(init_param)
                             temp_second_level_dict = dict.copy(init_second_level_dict_data)
                             if isinstance(temp_second_level_dict[second_level_key], int):
-                                temp_second_level_dict[second_level_key] = -9999999999
+                                temp_second_level_dict[second_level_key] = min_int
                                 temp_param[param_key] = temp_second_level_dict
                                 matchers = create_case_pattern.findall(str(temp_param))
                                 for matcher in matchers:
@@ -250,7 +252,7 @@ def create_case():
                     # 规则4：验证int型数值的最大值
                     temp_param = dict.copy(init_param)
                     if isinstance(temp_param[param_key], int):
-                        temp_param[param_key] = 9999999999
+                        temp_param[param_key] = max_int
                         matchers = create_case_pattern.findall(str(temp_param))
                         for matcher in matchers:
                             temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',
@@ -268,7 +270,7 @@ def create_case():
                     # 规则5：验证int型数值的最小值
                     temp_param = dict.copy(init_param)
                     if isinstance(temp_param[param_key], int):
-                        temp_param[param_key] = -9999999999
+                        temp_param[param_key] = min_int
                         matchers = create_case_pattern.findall(str(temp_param))
                         for matcher in matchers:
                             temp_param = str(temp_param).replace(str(matcher), str('\"')).replace('None',

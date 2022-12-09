@@ -11,8 +11,9 @@ class Yapi:
         self.url = 'http://yapi.xbongbong.com'
         self.token = '132a896d2dc4420896f4cdd3a982bfe77816c6aaacd7252300567ec30a3d38a3'  # 项目token（记得改）
         # self.token = 'db2c30e56df248c641d5e45428a583ab9dc8bf73e9aeefcef3b8effbef7b8007'
-        self.corpid = 'ding66041eb1c6df73f535c2f4657eb6378f'
-        self.userid = '215252650523902241'
+        self.corpid = 'ding66041eb1c6df73f535c2f4657eb6378f'    # 测试Misaki
+        self.userid = '215252650523902241'                      # 崔科达
+        # self.corpid = 'ding45b220254ed2e97335c2f4657eb6378f'    # 给皇上请安
 
     # 替换数据
     def replace_data(self, init_data, expected_to_be_replace, need_replace_to_data):
@@ -180,5 +181,5 @@ class Yapi:
 if __name__ == '__main__':
     yapi = Yapi()
     yapi.get_cat_menu()
-    yapi.get_interface_list_cat(1379)
+    yapi.get_interface_list_cat(1253)
     yapi.get_interface_detail()
